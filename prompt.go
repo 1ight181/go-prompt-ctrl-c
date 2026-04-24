@@ -133,11 +133,11 @@ func (p *Prompt) Run() {
 			p.renderer.Render(p.buffer, p.completion, p.lexer)
 		case code := <-exitCh:
 			p.renderer.BreakLine(p.buffer, p.lexer)
-			p.Close()
 			if p.interruptCallback != nil {
 				p.interruptCallback(code)
 				return
 			} else {
+				p.Close()
 				os.Exit(code)
 			}
 		default:
