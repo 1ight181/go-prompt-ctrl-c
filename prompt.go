@@ -136,6 +136,7 @@ func (p *Prompt) Run() {
 			p.Close()
 			if p.interruptCallback != nil {
 				p.interruptCallback(code)
+				return
 			} else {
 				os.Exit(code)
 			}
