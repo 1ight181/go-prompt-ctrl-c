@@ -8,8 +8,8 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/elk-language/go-prompt/debug"
-	istrings "github.com/elk-language/go-prompt/strings"
+	"github.com/1ight181/go-prompt-ctrl-c/debug"
+	istrings "github.com/1ight181/go-prompt-ctrl-c/strings"
 )
 
 const inputBufferSize = 1024
@@ -40,6 +40,8 @@ type ExecuteOnEnterCallback func(prompt *Prompt, indentSize int) (indent int, ex
 // that the suggestions were generated for and that should be replaced by the selected suggestion.
 type Completer func(Document) (suggestions []Suggest, startChar, endChar istrings.RuneNumber)
 
+type InterruptCallback func(code int)
+
 // Prompt is a core struct of go-prompt.
 type Prompt struct {
 	reader                 Reader
@@ -55,6 +57,7 @@ type Prompt struct {
 	completionOnDown       bool
 	exitChecker            ExitChecker
 	executeOnEnterCallback ExecuteOnEnterCallback
+	interruptCallback      InterruptCallback
 	skipClose              bool
 	completionReset        bool
 }
@@ -131,7 +134,11 @@ func (p *Prompt) Run() {
 		case code := <-exitCh:
 			p.renderer.BreakLine(p.buffer, p.lexer)
 			p.Close()
-			os.Exit(code)
+			if p.interruptCallback != nil {
+				p.interruptCallback(code)
+			} else {
+				os.Exit(code)
+			}
 		default:
 			time.Sleep(10 * time.Millisecond)
 		}

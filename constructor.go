@@ -11,6 +11,13 @@ type PrefixCallback func() (prefix string)
 
 const DefaultIndentSize = 2
 
+func WithInterruptCallback(fn InterruptCallback) Option {
+	return func(p *Prompt) error {
+		p.interruptCallback = fn
+		return nil
+	}
+}
+
 // WithIndentSize is an option that sets the amount of spaces
 // that constitute a single indentation level.
 func WithIndentSize(i int) Option {

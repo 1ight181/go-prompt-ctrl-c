@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"unicode/utf8"
 
-	"github.com/elk-language/go-prompt"
+	"github.com/1ight181/go-prompt-ctrl-c"
 )
 
 func main() {

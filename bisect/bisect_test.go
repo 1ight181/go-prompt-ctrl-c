@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/elk-language/go-prompt/bisect"
+	"github.com/1ight181/go-prompt-ctrl-c/bisect"
 )
 
 func Example() {

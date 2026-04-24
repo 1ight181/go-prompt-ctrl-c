@@ -1,4 +1,4 @@
-module github.com/elk-language/go-prompt
+module github.com/1ight181/go-prompt-ctrl-c
 
 go 1.24
 

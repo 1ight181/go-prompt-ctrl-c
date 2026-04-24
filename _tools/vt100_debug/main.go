@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"syscall"
 
-	prompt "github.com/elk-language/go-prompt"
-	"github.com/elk-language/go-prompt/term"
+	prompt "github.com/1ight181/go-prompt-ctrl-c"
+	"github.com/1ight181/go-prompt-ctrl-c/term"
 )
 
 func main() {
