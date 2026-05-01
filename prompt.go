@@ -106,7 +106,9 @@ func (p *Prompt) Run() {
 				// Unset raw mode
 				// Reset to Blocking mode because returned EAGAIN when still set non-blocking mode.
 				debug.AssertNoError(p.reader.Close())
+				p.skipClose = true
 				p.executor(input.input)
+				p.skipClose = false
 
 				p.completion.Update(*p.buffer.Document())
 
